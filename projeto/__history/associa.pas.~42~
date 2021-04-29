@@ -1,0 +1,230 @@
+unit associa;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls;
+
+type
+  TfrmAssocia = class(TForm)
+    gridProdutos: TStringGrid;
+    lblLanche: TLabel;
+    edtCodIngrediente: TEdit;
+    Label1: TLabel;
+    edtNome: TEdit;
+    Button1: TButton;
+    procedure gridProdutosDrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
+    procedure gridProdutosSelectCell(Sender: TObject; ACol, ARow: Integer;
+      var CanSelect: Boolean);
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure edtCodIngredienteExit(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+    procedure CarregarGrid;
+    procedure CarregaLanche(cod :string);
+    procedure CalculaTotalLanche;
+  public
+    codlancheassocia : string;
+    { Public declarations }
+  end;
+
+var
+  frmAssocia: TfrmAssocia;
+
+implementation
+
+{$R *.dfm}
+uses  udm;
+
+{ TfrmAssocia }
+
+procedure TfrmAssocia.Button1Click(Sender: TObject);
+  function verificacampos:boolean;
+  begin
+    Result := false;
+    if edtCodIngrediente.Text = '' then
+    begin
+      MessageDlg('Preencha o Campo Ingrediente.',mtWarning,[mbOK],0);
+      Exit;
+    end;
+    Result := True;
+  end;
+begin
+
+  if not verificacampos then
+    exit;
+
+  with udm.DataModule1.qryExecucao do
+  begin
+    close;
+    sql.Clear;
+    sql.Add('INSERT INTO lanche_ingrediente (codlanche,codingrediente) values ('+codlancheassocia+','+edtCodIngrediente.Text+')');
+    ExecSQL;
+    CarregarGrid;
+  end;
+end;
+
+procedure TfrmAssocia.CalculaTotalLanche;
+var
+  i : integer;
+  total : double;
+begin
+  total := 0;
+  for i := 1 to gridProdutos.RowCount do
+  begin
+    total := total + strtofloat(gridProdutos.Cells[2,i]);
+  end;
+  with udm.DataModule1.qryExecucao do
+  begin
+    close;
+    sql.Clear;
+    sql.Add('UPDATE lanches SET total = '+quotedstr(floattostr(total))+' where codlanche = '+codlancheassocia);
+    ExecSQL;
+  end;
+end;
+
+procedure TfrmAssocia.CarregaLanche(cod: string);
+begin
+  with udm.DataModule1.qryConsulta do
+  begin
+      Close;
+      sql.Clear;
+      sql.Add('SELECT *');
+      sql.Add('FROM lanches ');
+      sql.Add('WHERE  codlanche ='+ codlancheassocia);
+      Open;
+      if not eof then
+        lblLanche.Caption := lblLanche.Caption +' '+FieldByName('nome').AsString;
+  end;
+end;
+
+procedure TfrmAssocia.CarregarGrid;
+var
+  i : integer;
+begin
+  with gridProdutos do
+  begin
+    RowCount := 2;
+    Cells[0,0] := 'Código';
+    Cells[1,0] := 'Ingrediente';
+    Cells[2,0] := 'Valor R$';
+    with udm.DataModule1.qryConsulta do
+    begin
+      Close;
+      sql.Clear;
+      sql.Add('SELECT li.codingrediente, i.nome, i.valor');
+      sql.Add('FROM lanches l , lanche_ingrediente li , ingredientes i');
+      sql.Add('WHERE  l.codlanche = li.codlanche');
+      sql.Add('AND i.codingrediente = li.codingrediente');
+      sql.Add('AND li.codlanche ='+ codlancheassocia);
+      Open;
+      i := 1;
+      while not Eof do
+      begin
+        Cells[0,i] := FieldByName('codingrediente').AsString;
+        Cells[1,i] := FieldByName('nome').AsString;
+        Cells[2,i] := FormatFloat('#,##0.00',strtofloat(FieldByName('valor').AsString));
+        Next;
+        RowCount:= RowCount +1;
+        inc(i);
+        if eof then
+          RowCount := RowCount -1;
+      end;
+    end;
+
+  end;
+end;
+
+procedure TfrmAssocia.edtCodIngredienteExit(Sender: TObject);
+begin
+  if edtCodIngrediente.Text = '' then
+    edtNome.Text := ''
+  else
+  begin
+    with udm.DataModule1.qryConsulta do
+    begin
+      close;
+      sql.clear;
+      sql.Add('SELECT * FROM ingredientes WHERE codingrediente = '+edtCodIngrediente.Text);
+      Open;
+      if not eof then
+        edtNome.Text := FieldByName('nome').AsString
+      else
+      begin
+        MessageDlg('Ingrediente Não Encontrado.',mtError,[mbOK],0);
+        edtCodIngrediente.Clear;
+        edtCodIngrediente.SetFocus;
+        edtNome.Clear;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmAssocia.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if gridProdutos.Cells[0,1] <> '' then
+    CalculaTotalLanche;
+end;
+
+procedure TfrmAssocia.FormShow(Sender: TObject);
+begin
+  CarregaLanche(codlancheassocia);
+  CarregarGrid;
+  edtCodIngrediente.Clear;
+  edtNome.Clear;
+end;
+
+procedure TfrmAssocia.gridProdutosDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+var
+  BUTTON: Integer;
+  R: TRect;
+  SCapt : string;
+begin
+  if (ACol = 3) and (ARow <> 0) then
+  begin
+    gridProdutos.Canvas.FillRect(Rect);
+    BUTTON := 0;
+    R:=Rect;
+    SCapt := 'Retirar';
+    InflateRect(R,0,-1);
+    DrawFrameControl(gridProdutos.Canvas.Handle,R,BUTTON, BUTTON or BUTTON);
+    with gridProdutos.Canvas do
+    begin
+      Brush.Style := bsClear;
+      Font.Color := clBtnText;
+      TextRect(Rect, (Rect.Left + Rect.Right - TextWidth(SCapt)) div 2, (Rect.Top + Rect.Bottom - TextHeight(SCapt)) div 2, SCapt);//posicionamentodo botão
+    end;
+  end;
+end;
+
+procedure TfrmAssocia.gridProdutosSelectCell(Sender: TObject; ACol,
+  ARow: Integer; var CanSelect: Boolean);
+begin
+if (ACol = 3) and (CanSelect) and (gridProdutos.Cells[0,ARow] <> '') then
+  begin
+    if MessageDlg('Deseja Retirar o Ingrediente '+gridProdutos.Cells[1,ARow]+' do Lanche?',mtConfirmation,[mbYes, mbNo],0)=mrYes then
+    begin
+      try
+        with udm.datamodule1.qryExecucao do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('DELETE FROM lanche_ingrediente WHERE codlanche = '+codlancheassocia+' and codingrediente = '+gridProdutos.Cells[0,ARow]);
+          ExecSQL;
+
+          ShowMessage('Ingrediente Retirado da Associação.');
+          CarregarGrid;
+        end;
+      except
+       ShowMessage('Erro ao Tentar Retirar Ingrediente!');
+      end;
+    end;
+  end;
+end;
+
+end.

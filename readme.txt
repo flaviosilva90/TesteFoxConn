@@ -1,0 +1,1 @@
+***Salvar a pasta "Teste FoxConn" na sua particição C:\***

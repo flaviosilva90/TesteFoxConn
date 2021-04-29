@@ -1,0 +1,283 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  Height = 202
+  Width = 299
+  object conexao: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Teste FoxConn\ba' +
+      'nco\bd.mdb;Persist Security Info=False'
+    LoginPrompt = False
+    Mode = cmShareDenyNone
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 32
+    Top = 16
+  end
+  object qryExecucao: TADOQuery
+    Connection = conexao
+    Parameters = <>
+    Left = 120
+    Top = 24
+  end
+  object qryConsulta: TADOQuery
+    Connection = conexao
+    Parameters = <>
+    Left = 120
+    Top = 80
+  end
+  object FxDs_cardapio: TfrxDBDataset
+    UserName = 'DSCardapio'
+    CloseDataSource = False
+    DataSet = qryCardapio
+    BCDToCurrency = False
+    Left = 208
+    Top = 80
+  end
+  object cardapio: TfrxReport
+    Version = '6.2.1'
+    DataSet = FxDs_cardapio
+    DataSetName = 'DSCardapio'
+    DotMatrixReport = False
+    EngineOptions.DoublePass = True
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 44282.514287731500000000
+    ReportOptions.LastChange = 44313.825457731480000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 199
+    Top = 16
+    Datasets = <
+      item
+        DataSet = FxDs_cardapio
+        DataSetName = 'DSCardapio'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 34.015770000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          AllowVectorExport = True
+          Left = 306.141930000000000000
+          Top = 2.000000000000000000
+          Width = 79.370130000000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Card'#225'pio')
+          ParentFont = False
+        end
+      end
+      object GroupHeader1: TfrxGroupHeader
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 113.385900000000000000
+        Width = 718.110700000000000000
+        Condition = '<DSCardapio."lanche">'
+        KeepTogether = True
+        object Memo9: TfrxMemoView
+          AllowVectorExport = True
+          Left = 11.338590000000000000
+          Top = 2.000000000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Lanche:')
+          ParentFont = False
+        end
+        object Memo11: TfrxMemoView
+          AllowVectorExport = True
+          Left = 75.590600000000000000
+          Top = 2.000000000000000000
+          Width = 264.567100000000000000
+          Height = 18.897650000000000000
+          DataField = 'lanche'
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[DSCardapio."lanche"]')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          AllowVectorExport = True
+          Left = 524.559370000000000000
+          Top = 1.779529999999990000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Total: R$')
+          ParentFont = False
+        end
+        object Memo12: TfrxMemoView
+          AllowVectorExport = True
+          Left = 588.811380000000000000
+          Top = 1.779529999999994000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          DataField = 'total'
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[DSCardapio."total"]')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 158.740260000000000000
+        Width = 718.110700000000000000
+        DataSet = FxDs_cardapio
+        DataSetName = 'DSCardapio'
+        RowCount = 0
+        object Memo6: TfrxMemoView
+          AllowVectorExport = True
+          Left = 105.826840000000000000
+          Top = 1.779529999999990000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Ingredientes :')
+          ParentFont = False
+        end
+        object Memo8: TfrxMemoView
+          AllowVectorExport = True
+          Left = 204.094620000000000000
+          Top = 1.779529999999994000
+          Width = 139.842610000000000000
+          Height = 18.897650000000000000
+          DataField = 'nome'
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[DSCardapio."nome"]')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 582.047620000000000000
+          Top = 1.000000000000000000
+          Width = 22.677180000000000000
+          Height = 18.897650000000000000
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'R$')
+          ParentFont = False
+        end
+        object Memo7: TfrxMemoView
+          AllowVectorExport = True
+          Left = 604.724800000000000000
+          Top = 1.000000000000000000
+          Width = 105.826840000000000000
+          Height = 18.897650000000000000
+          DataField = 'valor'
+          DataSet = FxDs_cardapio
+          DataSetName = 'DSCardapio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[DSCardapio."valor"]')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object qryCardapio: TADOQuery
+    Active = True
+    Connection = conexao
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT l.nome as lanche, l.total, i.nome, i.valor'
+      'FROM lanches l, ingredientes i, lanche_ingrediente li'
+      'WHERE l.codlanche = li.codlanche'
+      'AND i.codingrediente = li.codingrediente'
+      'ORDER BY l.codlanche')
+    Left = 208
+    Top = 136
+  end
+end

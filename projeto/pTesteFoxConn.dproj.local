@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/11/28 15:57:03.000.912,=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/01/25 23:26:25.000.303,=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2021/01/25 23:26:26.000.730,=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\ServerConst1.pas</Transaction>
+    <Transaction>2021/04/27 11:18:06.000.647,=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 11:57:13.000.343,C:\Teste FoxConn\projeto\menu.dfm=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/04/27 11:57:13.000.343,C:\Teste FoxConn\projeto\menu.pas=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 11:57:21.000.894,C:\Teste FoxConn\projeto\pTesteFoxConn.dproj=C:\Users\fdsil\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/04/27 12:01:45.000.368,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 12:01:56.000.164,C:\Teste FoxConn\projeto\udm.dfm=C:\Teste FoxConn\projeto\Unit1.dfm</Transaction>
+    <Transaction>2021/04/27 12:01:56.000.164,C:\Teste FoxConn\projeto\udm.pas=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 12:07:46.000.853,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 12:11:41.000.426,C:\Teste FoxConn\projeto\cadastro.pas=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 12:11:41.000.426,C:\Teste FoxConn\projeto\cadastro.dfm=C:\Teste FoxConn\projeto\Unit1.dfm</Transaction>
+    <Transaction>2021/04/27 18:01:38.000.280,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 18:03:01.000.972,C:\Teste FoxConn\projeto\gerenciamento.pas=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 18:03:01.000.972,C:\Teste FoxConn\projeto\gerenciamento.dfm=C:\Teste FoxConn\projeto\Unit1.dfm</Transaction>
+    <Transaction>2021/04/27 20:00:46.000.481,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/27 20:01:07.000.094,C:\Teste FoxConn\projeto\associa.dfm=C:\Teste FoxConn\projeto\Unit1.dfm</Transaction>
+    <Transaction>2021/04/27 20:01:07.000.094,C:\Teste FoxConn\projeto\associa.pas=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/28 15:44:23.000.661,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/28 15:45:38.000.310,C:\Teste FoxConn\projeto\Unit1.pas=C:\Teste FoxConn\projeto\gestaopedido.pas</Transaction>
+    <Transaction>2021/04/28 15:45:38.000.310,C:\Teste FoxConn\projeto\Unit1.dfm=C:\Teste FoxConn\projeto\gestaopedido.dfm</Transaction>
+    <Transaction>2021/04/28 16:08:06.000.540,=C:\Teste FoxConn\projeto\Unit1.pas</Transaction>
+    <Transaction>2021/04/28 16:09:35.000.942,C:\Teste FoxConn\projeto\Unit1.dfm=C:\Teste FoxConn\projeto\cadpedido.dfm</Transaction>
+    <Transaction>2021/04/28 16:09:35.000.942,C:\Teste FoxConn\projeto\Unit1.pas=C:\Teste FoxConn\projeto\cadpedido.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="associa.pas"/>
+    <File Path="associa.dfm"/>
+    <File Path="cadastro.pas"/>
+    <File Path="cadastro.dfm"/>
+    <File Path="gerenciamento.pas"/>
+    <File Path="gerenciamento.dfm"/>
+    <File Path="gestaopedido.pas"/>
+    <File Path="gestaopedido.dfm"/>
+    <File Path="menu.pas"/>
+    <File Path="menu.dfm"/>
+    <File Path="udm.pas"/>
+    <File Path="udm.dfm"/>
+    <File Path="cadpedido.pas"/>
+    <File Path="cadpedido.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>

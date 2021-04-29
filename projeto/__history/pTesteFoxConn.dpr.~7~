@@ -1,0 +1,19 @@
+program pTesteFoxConn;
+
+uses
+  Vcl.Forms,
+  menu in 'menu.pas' {frmMenu},
+  udm in 'udm.pas' {DataModule1: TDataModule},
+  cadastro in 'cadastro.pas' {frmCadastro},
+  gerenciamento in 'gerenciamento.pas' {frmGerenciamento},
+  associa in 'associa.pas' {Form1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

@@ -1,0 +1,185 @@
+unit gerenciamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls;
+
+type
+  TfrmGerenciamento = class(TForm)
+    gridProdutos: TStringGrid;
+    Atualizar: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure gridProdutosDrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
+    procedure gridProdutosSelectCell(Sender: TObject; ACol, ARow: Integer;
+      var CanSelect: Boolean);
+    procedure AtualizarClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure CarregaGrid;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGerenciamento: TfrmGerenciamento;
+
+implementation
+
+{$R *.dfm}
+
+uses udm, cadastro;
+
+procedure TfrmGerenciamento.AtualizarClick(Sender: TObject);
+begin
+  CarregaGrid;
+end;
+
+procedure TfrmGerenciamento.CarregaGrid;
+var
+  i : integer;
+begin
+  with gridProdutos do
+  begin
+    RowCount := 2;
+    Cells[0,0] := 'Código';
+    Cells[1,0] := 'Nome';
+    Cells[2,0] := 'Associar';
+    Cells[3,0] := 'Associar';
+    Cells[4,0] := 'Associar';
+    with udm.DataModule1.qryConsulta do
+    begin
+      Close;
+      sql.Clear;
+      SQL.Add('SELECT * FROM lanches');
+      Open;
+      i := 1;
+      while not Eof do
+      begin
+        Cells[0,i] := FieldByName('codlanche').AsString;
+        Cells[1,i] := FieldByName('nome').AsString;
+        Next;
+        RowCount:= RowCount +1;
+        inc(i);
+        if eof then
+          RowCount := RowCount -1;
+      end;
+    end;
+
+  end;
+end;
+
+procedure TfrmGerenciamento.FormShow(Sender: TObject);
+begin
+  CarregaGrid;
+end;
+
+procedure TfrmGerenciamento.gridProdutosDrawCell(Sender: TObject; ACol,
+  ARow: Integer; Rect: TRect; State: TGridDrawState);
+var
+  BUTTON: Integer;
+  R: TRect;
+  SCapt : string;
+begin
+  if (ACol = 2) and (ARow <> 0) then
+  begin
+    gridProdutos.Canvas.FillRect(Rect);
+    BUTTON := 0;
+    R:=Rect;
+    SCapt := 'Ingredi.';
+    InflateRect(R,0,-1);
+    DrawFrameControl(gridProdutos.Canvas.Handle,R,BUTTON, BUTTON or BUTTON);
+    with gridProdutos.Canvas do
+    begin
+      Brush.Style := bsClear;
+      Font.Color := clBtnText;
+      TextRect(Rect, (Rect.Left + Rect.Right - TextWidth(SCapt)) div 2, (Rect.Top + Rect.Bottom - TextHeight(SCapt)) div 2, SCapt);//posicionamentodo botão
+    end;
+  end
+  else if (ACol = 3) and (ARow <> 0) then
+  begin
+    gridProdutos.Canvas.FillRect(Rect);
+    BUTTON := 0;
+    R:=Rect;
+    SCapt := 'Editar';
+    InflateRect(R,0,-1);
+    DrawFrameControl(gridProdutos.Canvas.Handle,R,BUTTON, BUTTON or BUTTON);
+    with gridProdutos.Canvas do
+    begin
+      Brush.Style := bsClear;
+      Font.Color := clBtnText;
+      TextRect(Rect, (Rect.Left + Rect.Right - TextWidth(SCapt)) div 2, (Rect.Top + Rect.Bottom - TextHeight(SCapt)) div 2, SCapt);//posicionamentodo botão
+    end;
+  end
+  else if (ACol = 4) and (ARow <> 0) then
+  begin
+    gridProdutos.Canvas.FillRect(Rect);
+    BUTTON := 0;
+    R:=Rect;
+    SCapt := 'Excluir';
+    InflateRect(R,0,-1);
+    DrawFrameControl(gridProdutos.Canvas.Handle,R,BUTTON, BUTTON or BUTTON);
+    with gridProdutos.Canvas do
+    begin
+      Brush.Style := bsClear;
+      Font.Color := clBtnText;
+      TextRect(Rect, (Rect.Left + Rect.Right - TextWidth(SCapt)) div 2, (Rect.Top + Rect.Bottom - TextHeight(SCapt)) div 2, SCapt);//posicionamentodo botão
+    end;
+  end;
+end;
+
+procedure TfrmGerenciamento.gridProdutosSelectCell(Sender: TObject; ACol,
+  ARow: Integer; var CanSelect: Boolean);
+begin
+
+  if (ACol = 2) and (CanSelect) then
+  begin
+    Application.CreateForm(cadastro.TfrmCadastro, frmCadastro);
+    try
+      frmCadastro.codlanche := gridProdutos.Cells[0,ARow];
+      frmCadastro.ShowModal;
+    finally
+      FreeAndNil(frmCadastro);
+    end;
+  end;
+
+  if (ACol = 3) and (CanSelect) then
+  begin
+    Application.CreateForm(cadastro.TfrmCadastro, frmCadastro);
+    try
+      frmCadastro.codlanche := gridProdutos.Cells[0,ARow];
+      frmCadastro.ShowModal;
+    finally
+      FreeAndNil(frmCadastro);
+    end;
+  end;
+
+  if (ACol = 4) and (CanSelect) then
+  begin
+    if MessageDlg('Deseja Excluir o Lanche '+gridProdutos.Cells[1,ARow]+'?',mtConfirmation,[mbYes, mbNo],0)=mrYes then
+    begin
+      try
+        with udm.datamodule1.qryExecucao do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('DELETE FROM lanche_ingrediente WHERE codlanche = '+gridProdutos.Cells[0,ARow]);
+          ExecSQL;
+
+          Close;
+          SQL.Clear;
+          SQL.Add('DELETE FROM lanches WHERE codlanche = '+gridProdutos.Cells[0,ARow]);
+          ExecSQL;
+
+          ShowMessage('Produto Excluído da Base de Dados.');
+        end;
+      except
+       ShowMessage('Erro ao tentar excluir Produto!');
+      end;
+    end;
+  end;
+end;
+
+end.

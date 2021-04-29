@@ -1,0 +1,47 @@
+object frmGerenciamento: TfrmGerenciamento
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  Caption = 'Gerenciamento de Produtos'
+  ClientHeight = 367
+  ClientWidth = 736
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object gridProdutos: TStringGrid
+    Left = 0
+    Top = 8
+    Width = 736
+    Height = 359
+    Align = alBottom
+    Color = clAqua
+    Ctl3D = True
+    DoubleBuffered = False
+    FixedCols = 0
+    RowCount = 2
+    GradientEndColor = clBlack
+    GradientStartColor = clBlack
+    ParentCtl3D = False
+    ParentDoubleBuffered = False
+    ScrollBars = ssVertical
+    TabOrder = 0
+    OnDrawCell = gridProdutosDrawCell
+    ColWidths = (
+      64
+      449
+      64
+      64
+      64)
+    RowHeights = (
+      24
+      24)
+  end
+end
